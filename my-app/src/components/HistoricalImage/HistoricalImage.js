@@ -18,7 +18,7 @@ const HistoricalImage = () => {
 
             const response = await axios.get('https://cors-anywhere.herokuapp.com/https://api.europeana.eu/record/v2/search.json', {
                 params: {
-                    query: 'Ireland battle',
+                    query: 'Irish War Men',
                     media: true,
                     type: 'IMAGE',
                     wskey: 'ntrageryl',
@@ -120,8 +120,8 @@ const HistoricalImage = () => {
                         objectFit: 'cover'
                     }
                 }
-                /> <
-                /div> <
+                /> < /
+                div > <
                 Box >
                 <
                 h3 > {
@@ -132,8 +132,8 @@ const HistoricalImage = () => {
                 } < /p> <
                 p > Provided by: {
                     imageData.provider
-                } < /p> <
-                /Box> <
+                } < /p> < /
+                Box > <
                 />
             )
         } <

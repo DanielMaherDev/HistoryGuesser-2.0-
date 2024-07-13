@@ -1,15 +1,31 @@
-import React from 'react';
-import './App.css';
-import GameScreen from './components/GameScreen/GameScreen';
+// src/App.js
+import React, {
+    useState
+} from 'react';
+import SplashScreen from './pages/SplashScreen';
+import MainMenu from './pages/MainMenu';
 
 const App = () => {
-    return ( <
-        div className = "App" >
-        <
-        GameScreen / >
-        <
-        /div>
-    );
-};
+        const [currentView, setCurrentView] = useState('splash');
+        const [selectedPack, setSelectedPack] = useState(null);
 
-export default App;
+        const handleTransition = (pack) => {
+            setSelectedPack(pack);
+            setCurrentView('main-menu');
+        };
+
+        return ( <
+                div > {
+                    currentView === 'splash' && < SplashScreen onTransition = {
+                        handleTransition
+                    }
+                    />} {
+                        currentView === 'main-menu' && < MainMenu selectedPack = {
+                            selectedPack
+                        }
+                        />} <
+                        /div>
+                    );
+                };
+
+                export default App;
