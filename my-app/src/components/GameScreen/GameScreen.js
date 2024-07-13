@@ -1,47 +1,36 @@
-import React, {
-    useState
-} from 'react';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import HistoricalImage from '../HistoricalImage/HistoricalImage';
-import InfoPanel from '../InfoPanel/InfoPanel';
+import React from 'react';
 import './GameScreen.css';
+import logo from '../../assets/images/history-guesser-logo.png'; // Adjust the path as necessary
 
 const GameScreen = () => {
-    const [year, setYear] = useState(1900);
-
-    const handleScroll = (event) => {
-        if (event.deltaY < 0) {
-            setYear(year + 1); // Scroll up
-        } else {
-            setYear(year - 1); // Scroll down
-        }
-    };
-
     return ( <
-        div className = "game-screen"
-        onWheel = {
-            handleScroll
-        } >
+        div className = "game-screen" >
         <
-        Header / >
+        div className = "top-bar" >
         <
-        div className = "content" >
+        div className = "logo" >
         <
-        HistoricalImage src = "historical_image_url"
-        description = "Historical Image" / >
-        <
-        InfoPanel event = "Major Emigration Wave"
-        location = "Ireland" / >
+        img src = {
+            logo
+        }
+        alt = "History Guesser Logo" / >
         <
         /div> <
-        Footer year = {
-            year
-        }
-        score = {
-            100
-        }
-        /> <
+        div className = "timer" > TIMER < /div> <
+        div className = "multiplier" > Multiplier < /div> <
+        div className = "streak" > Streak < /div> <
+        div className = "close" > X < /div> < /
+        div > <
+        div className = "main-content" >
+        <
+        div className = "image" > IMAGE < /div> <
+        div className = "hints" > Hints < /div> < /
+        div > <
+        div className = "bottom-bar" >
+        <
+        div className = "year-scroller" > Year Scroller < /div> <
+        div className = "guess-button" > Guess(button) < /div> < /
+        div > <
         /div>
     );
 };

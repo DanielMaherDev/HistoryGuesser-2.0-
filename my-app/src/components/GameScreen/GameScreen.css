@@ -2,13 +2,92 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    background-color: #FAEBD7;
+    width: 100vw;
 }
 
-.content {
+.top-bar,
+.bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.top-bar {
+    height: 10%;
+    border-bottom: 1px solid black;
+}
+
+.bottom-bar {
+    height: 10%;
+    border-top: 1px solid black;
+    justify-content: space-around;
+}
+
+.main-content {
+    display: flex;
     flex: 1;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.logo img {
+    height: 100%;
+    max-height: 80px;
+    /* Adjust the size as needed */
+    max-width: 100%;
+    /* Ensure the logo fits within its container */
+}
+
+.timer,
+.multiplier,
+.streak,
+.close,
+.image,
+.hints,
+.year-scroller,
+.guess-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
+    padding: 10px;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+.logo {
+    width: 15%;
+}
+
+.timer {
+    width: 20%;
+}
+
+.multiplier {
+    width: 15%;
+}
+
+.streak {
+    width: 15%;
+}
+
+.close {
+    width: 5%;
+}
+
+.image {
+    flex: 3;
+    margin-right: 10px;
+}
+
+.hints {
+    flex: 1;
+}
+
+.year-scroller {
+    width: 45%;
+}
+
+.guess-button {
+    width: 20%;
 }

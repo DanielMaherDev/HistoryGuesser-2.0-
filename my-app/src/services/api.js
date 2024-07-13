@@ -1,13 +1,15 @@
-import axios from 'axios';
+import React from 'react';
+import GameScreen from './components/GameScreen/GameScreen';
+import './App.css';
 
-const API_BASE_URL = 'https://your-api-url.com';
+function App() {
+    return ( <
+        div className = "App" >
+        <
+        GameScreen / >
+        <
+        /div>
+    );
+}
 
-export const getHistoricalData = async () => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/historical-data`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching historical data', error);
-        throw error;
-    }
-};
+export default App;
