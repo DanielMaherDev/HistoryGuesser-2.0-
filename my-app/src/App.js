@@ -1,8 +1,8 @@
 import React from 'react';
-import GameScreen from './components/GameScreen/GameScreen';
 import './App.css';
+import GameScreen from './components/GameScreen/GameScreen';
 
-function App() {
+const App = () => {
     return ( <
         div className = "App" >
         <
@@ -10,6 +10,6 @@ function App() {
         <
         /div>
     );
-}
+};
 
 export default App;
