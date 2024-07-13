@@ -8,43 +8,44 @@ const SplashScreen = ({
     onTransition
 }) => {
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedPack, setSelectedPack] = useState(null);
+    const [progress, setProgress] = useState(0);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            if (isLoading) {
-                setIsLoading(false);
-                onTransition();
-            }
-        }, 5000); // 5 seconds delay
+        const loadInterval = setInterval(() => {
+            setProgress((prevProgress) => {
+                if (prevProgress >= 100) {
+                    clearInterval(loadInterval);
+                    setIsLoading(false);
+                    onTransition();
+                    return 100;
+                }
+                return prevProgress + 10; // Increment the progress by 10
+            });
+        }, 500); // Adjust the interval to control loading speed
 
-        return () => clearTimeout(timer);
-    }, [isLoading, onTransition]);
-
-    const handlePackSelection = (pack) => {
-        setSelectedPack(pack);
-        setIsLoading(false);
-        onTransition(pack);
-    };
+        return () => clearInterval(loadInterval);
+    }, [onTransition]);
 
     return ( <
         div className = "splash-screen" >
         <
-        h1 > Welcome to the Game < /h1> <
-        div className = "packs" >
+        div className = "loading-container" >
         <
-        button onClick = {
-            () => handlePackSelection('Irish War History')
-        } > Irish War History < /button> {
-            /* Add more packs here */ } <
-        /div> <
-        button onClick = {
-            () => {
-                setIsLoading(false);
-                onTransition();
+        img src = "/path/to/loading-image.png"
+        alt = "Loading"
+        className = "loading-image" / >
+        <
+        div className = "loading-bar" >
+        <
+        div className = "loading-progress"
+        style = {
+            {
+                width: `${progress}%`
             }
-        } > Go to Main Menu < /button> <
-        /div>
+        } > < /div> < /
+        div > <
+        /div> < /
+        div >
     );
 };
 
