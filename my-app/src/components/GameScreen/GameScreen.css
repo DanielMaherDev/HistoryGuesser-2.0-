@@ -91,3 +91,16 @@
 .guess-button {
     width: 20%;
 }
+
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+    color: white;
+    padding: 10px;
+    text-align: center;
+    z-index: 10;
+    /* Ensures the footer is above the image */
+}
