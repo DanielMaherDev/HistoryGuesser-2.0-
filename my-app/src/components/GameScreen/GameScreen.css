@@ -1,0 +1,14 @@
+.game-screen {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: #FAEBD7;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}

@@ -1,0 +1,11 @@
+.header {
+    background-color: #2F4F4F;
+    color: #FAEBD7;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.timer {
+    font-size: 24px;
+}

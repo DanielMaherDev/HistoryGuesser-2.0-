@@ -1,0 +1,13 @@
+.info-panel {
+    position: absolute;
+    right: 10px;
+    background-color: #F5DEB3;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.event-info,
+.location-info {
+    margin: 10px 0;
+    font-size: 18px;
+}

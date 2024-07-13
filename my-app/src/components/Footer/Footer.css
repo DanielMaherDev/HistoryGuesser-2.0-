@@ -1,0 +1,18 @@
+.footer {
+    background-color: #2F4F4F;
+    color: #FAEBD7;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.score {
+    font-size: 18px;
+}
+
+.year-scroll {
+    font-size: 24px;
+    background-color: #DAA520;
+    padding: 10px;
+    border-radius: 5px;
+}
