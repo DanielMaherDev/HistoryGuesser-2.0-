@@ -12,6 +12,11 @@ const GameScreen = () => {
     const [displayTime, setDisplayTime] = useState(10);
     const [multiplier, setMultiplier] = useState(5.00);
     const [year, setYear] = useState(1900);
+    const [imageYear, setImageYear] = useState(null);
+    const [streak, setStreak] = useState(0);
+    const [points, setPoints] = useState(0);
+    const [hints, setHints] = useState('');
+    const [fetching, setFetching] = useState(true);
 
     useEffect(() => {
         if (timeLeft <= 0) return;
@@ -38,6 +43,18 @@ const GameScreen = () => {
         setMultiplier((1 + (4 * timeLeft / 10)).toFixed(2));
     }, [timeLeft]);
 
+    const handleGuess = () => {
+        if (imageYear) {
+            const yearDiff = Math.abs(year - imageYear);
+            const calculatedPoints = Math.max(0, Math.round((100 - yearDiff) * multiplier));
+            setPoints(points + calculatedPoints);
+            setStreak(streak + 1);
+            console.log('Guess made, fetching new image...');
+            setFetching(true);
+            setTimeLeft(10.00);
+        }
+    };
+
     return ( <
         div className = "game-screen" >
         <
@@ -59,16 +76,33 @@ const GameScreen = () => {
             multiplier
         }
         x < /div> <
-        div className = "streak" > Streak < /div> <
-        div className = "close" > X < /div> < /
-        div > <
+        div className = "streak" > Streak: {
+            streak
+        } < /div> <
+        div className = "close" > X < /div> <
+        /div> <
         div className = "main-content" >
         <
-        div className = "image" > < HistoricalImage / >
+        div className = "image" >
         <
+        HistoricalImage setImageYear = {
+            setImageYear
+        }
+        setHints = {
+            setHints
+        }
+        fetching = {
+            fetching
+        }
+        setFetching = {
+            setFetching
+        }
+        /> <
         /div> <
-        div className = "hints" > Hints < /div> < /
-        div > <
+        div className = "hints" > {
+            hints
+        } < /div> <
+        /div> <
         div className = "bottom-bar" >
         <
         YearScroller year = {
@@ -78,8 +112,11 @@ const GameScreen = () => {
             setYear
         }
         /> <
-        div className = "guess-button" > Guess(button) < /div> < /
-        div > <
+        button className = "guess-button"
+        onClick = {
+            handleGuess
+        } > Guess < /button> <
+        /div> <
         /div>
     );
 };

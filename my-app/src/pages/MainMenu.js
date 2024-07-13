@@ -2,18 +2,18 @@
 import React from 'react';
 
 const MainMenu = ({
-        selectedPack
-    }) => {
-        return ( <
-            div className = "main-menu" >
-            <
-            h1 > Main Menu < /h1> {
-                selectedPack && < p > Selected Pack: {
-                        selectedPack
-                    } < /p>} {
-                        /* Menu content goes here */ } <
-                    /div>
-            );
-        };
+    onPackSelect
+}) => {
+    return ( <
+        div className = "main-menu" >
+        <
+        h1 > Main Menu < /h1> <
+        button onClick = {
+            () => onPackSelect('Irish War History')
+        } > Enter Irish War History < /button> {
+            /* Add more buttons for other packs here */ } <
+        /div>
+    );
+};
 
-        export default MainMenu;
+export default MainMenu;

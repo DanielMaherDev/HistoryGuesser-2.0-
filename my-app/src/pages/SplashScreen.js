@@ -1,50 +1,22 @@
-// src/pages/SplashScreen.js
 import React, {
-    useEffect,
-    useState
+    useEffect
 } from 'react';
 
 const SplashScreen = ({
     onTransition
 }) => {
-    const [isLoading, setIsLoading] = useState(true);
-    const [progress, setProgress] = useState(0);
-
     useEffect(() => {
-        const loadInterval = setInterval(() => {
-            setProgress((prevProgress) => {
-                if (prevProgress >= 100) {
-                    clearInterval(loadInterval);
-                    setIsLoading(false);
-                    onTransition();
-                    return 100;
-                }
-                return prevProgress + 10; // Increment the progress by 10
-            });
-        }, 500); // Adjust the interval to control loading speed
+        const timer = setTimeout(() => {
+            onTransition();
+        }, 2000); // Display splash screen for 2 seconds
 
-        return () => clearInterval(loadInterval);
+        return () => clearTimeout(timer); // Cleanup the timer
     }, [onTransition]);
 
     return ( <
         div className = "splash-screen" >
         <
-        div className = "loading-container" >
-        <
-        img src = "/path/to/loading-image.png"
-        alt = "Loading"
-        className = "loading-image" / >
-        <
-        div className = "loading-bar" >
-        <
-        div className = "loading-progress"
-        style = {
-            {
-                width: `${progress}%`
-            }
-        } > < /div> < /
-        div > <
-        /div> < /
+        h1 > Loading... < /h1> < /
         div >
     );
 };

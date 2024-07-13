@@ -2,142 +2,88 @@ import React, {
     useState,
     useEffect
 } from 'react';
-import axios from 'axios';
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
+import './HistoricalImage.css';
 
-const HistoricalImage = () => {
-    const [imageData, setImageData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+const HistoricalImage = ({
+    setImageYear,
+    setHints,
+    fetching,
+    setFetching
+}) => {
+    const [imageUrl, setImageUrl] = useState('');
+    const [error, setError] = useState('');
 
     const fetchNewImage = async () => {
         try {
-            setLoading(true);
-            setError(null);
+            console.log('Fetching new image...');
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com';
+            const apiUrl = `${proxyUrl}/https://api.europeana.eu/record/v2/search.json?query=Ireland%20battle&media=true&type=IMAGE&wskey=ishoormu`;
 
-            const response = await axios.get('https://cors-anywhere.herokuapp.com/https://api.europeana.eu/record/v2/search.json', {
-                params: {
-                    query: 'Irish War Men',
-                    media: true,
-                    type: 'IMAGE',
-                    wskey: 'ntrageryl',
-                },
-            });
+            const response = await fetch(apiUrl);
 
-            console.log('Full JSON response:', response.data);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
 
-            if (response.data && response.data.items && response.data.items.length > 0) {
-                const validItems = await Promise.all(
-                    response.data.items.map(item => {
-                        return new Promise(resolve => {
-                            if (item.edmIsShownBy && item.edmIsShownBy[0]) {
-                                const img = new Image();
-                                img.src = item.edmIsShownBy[0];
-                                img.onload = () => {
-                                    if (img.width >= 500 && img.height >= 500) {
-                                        resolve(item);
-                                    } else {
-                                        resolve(null);
-                                    }
-                                };
-                                img.onerror = () => resolve(null);
-                            } else {
-                                resolve(null);
-                            }
-                        });
-                    })
+            const data = await response.json();
+            console.log('Data received:', data);
+            const images = data.items;
+
+            if (images && images.length > 0) {
+                const validImages = images.filter(image =>
+                    image.dcDescription && image.dcDescription.length > 0 &&
+                    image.year && image.year.length > 0 &&
+                    image.edmIsShownBy && image.edmIsShownBy[0]
                 );
 
-                const filteredItems = validItems.filter(item => item !== null);
+                if (validImages.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * validImages.length);
+                    const validImage = validImages[randomIndex];
 
-                if (filteredItems.length > 0) {
-                    const randomIndex = Math.floor(Math.random() * filteredItems.length);
-                    const item = filteredItems[randomIndex];
-                    const imageUrl = item.edmIsShownBy[0];
-                    const title = item.title && item.title[0] ? item.title[0] : 'No title available';
-                    const description = item.dcDescription && item.dcDescription[0] ? item.dcDescription[0] : 'No description available';
-                    const provider = item.dataProvider && item.dataProvider[0] ? item.dataProvider[0] : 'Unknown provider';
-
-                    setImageData({
-                        imageUrl,
-                        title,
-                        description,
-                        provider
-                    });
+                    setImageUrl(validImage.edmIsShownBy[0]);
+                    setImageYear(validImage.year[0]);
+                    setHints(validImage.dcDescription[0]);
+                    console.log('New image URL:', validImage.edmIsShownBy[0]);
                 } else {
-                    throw new Error('No valid items found with specified dimensions.');
+                    setError('No valid images found.');
                 }
             } else {
-                throw new Error('No items found in response.');
+                setError('No images found.');
             }
-        } catch (err) {
-            setError(`Error fetching data: ${err.message}`);
+        } catch (error) {
+            console.error('Error fetching data: ', error);
+            setError('Error fetching data.');
         } finally {
-            setLoading(false);
+            setFetching(false);
         }
     };
 
     useEffect(() => {
-        fetchNewImage();
-    }, []);
-
-    if (loading) {
-        return <CircularProgress / > ;
-    }
+        if (fetching) {
+            fetchNewImage();
+        }
+    }, [fetching]);
 
     if (error) {
-        return <Box > Error: {
-            error
-        } < /Box>;
+        return ( <
+            div >
+            <
+            div > Error: {
+                error
+            } < /div> <
+            /div>
+        );
     }
 
     return ( <
-        Box > {
-            imageData && ( <
-                >
-                <
-                div style = {
-                    {
-                        width: '100%',
-                        maxWidth: '800px',
-                        height: '600px',
-                        overflow: 'hidden',
-                        margin: '0 auto'
-                    }
-                } >
-                <
-                img src = {
-                    imageData.imageUrl
-                }
-                alt = {
-                    imageData.title
-                }
-                style = {
-                    {
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover'
-                    }
-                }
-                /> < /
-                div > <
-                Box >
-                <
-                h3 > {
-                    imageData.title
-                } < /h3> <
-                p > {
-                    imageData.description
-                } < /p> <
-                p > Provided by: {
-                    imageData.provider
-                } < /p> < /
-                Box > <
-                />
-            )
+        div className = "historical-image-container" > {
+            imageUrl ? < img src = {
+                imageUrl
+            }
+            alt = "Historical"
+            className = "historical-image" / > : 'Loading...'
         } <
-        /Box>
+        /div>
     );
 };
 
