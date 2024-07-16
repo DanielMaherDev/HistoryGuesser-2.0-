@@ -1,50 +1,73 @@
+/* Ensure the bottom bar has a fixed height */
+.bottom-bar {
+    height: 80px;
+    /* Adjust as needed */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    /* Ensure it's above other content */
+}
+
+/* Adjust the main content area */
+.main-content {
+    padding-bottom: 100px;
+    /* Add bottom padding to accommodate the bottom bar */
+    /* Other styles */
+    overflow-y: auto;
+    /* Ensure scroll if content is too tall */
+    position: relative;
+    /* Ensure relative positioning */
+}
+
 .historical-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 80px);
+    /* Adjust height to account for the bottom bar */
+    overflow: hidden;
+}
+
+.historical-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Style for hints */
+.hints-container {
+    position: absolute;
+    bottom: 100px;
+    left: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    /* Ensure container does not overflow */
+    align-items: flex-start;
 }
 
-.historical-image {
-    max-width: 100%;
-    max-height: 100%;
-    /* Ensure the image does not exceed the height of the container */
-    width: auto;
-    /* Maintain aspect ratio */
-    height: auto;
-    /* Maintain aspect ratio */
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    object-fit: contain;
-    /* Ensure the image fits within the container */
+.hint-message {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    animation: slideIn 0.5s ease-out;
 }
 
-.historical-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-}
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
 
-.historical-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-.historical-image-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 500px;
-}
-
-.historical-image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }

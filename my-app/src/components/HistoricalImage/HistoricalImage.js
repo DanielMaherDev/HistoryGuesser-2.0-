@@ -1,3 +1,4 @@
+// src/components/HistoricalImage/HistoricalImage.js
 import React, {
     useState,
     useEffect
@@ -8,45 +9,34 @@ const HistoricalImage = ({
     setImageYear,
     setHints,
     fetching,
-    setFetching
+    setFetching,
+    selectedPack,
+    onImageLoad
 }) => {
     const [imageUrl, setImageUrl] = useState('');
     const [error, setError] = useState('');
 
     const fetchNewImage = async () => {
         try {
-            console.log('Fetching new image...');
-            const proxyUrl = 'https://cors-anywhere.herokuapp.com';
-            const apiUrl = `${proxyUrl}/https://api.europeana.eu/record/v2/search.json?query=Ireland%20battle&media=true&type=IMAGE&wskey=ishoormu`;
-
-            const response = await fetch(apiUrl);
-
+            const response = await fetch(`/packs/${selectedPack}.json`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
             const data = await response.json();
-            console.log('Data received:', data);
-            const images = data.items;
+            const images = data.images;
 
             if (images && images.length > 0) {
-                const validImages = images.filter(image =>
-                    image.dcDescription && image.dcDescription.length > 0 &&
-                    image.year && image.year.length > 0 &&
-                    image.edmIsShownBy && image.edmIsShownBy[0]
-                );
+                const randomIndex = Math.floor(Math.random() * images.length);
+                const validImage = images[randomIndex];
 
-                if (validImages.length > 0) {
-                    const randomIndex = Math.floor(Math.random() * validImages.length);
-                    const validImage = validImages[randomIndex];
-
-                    setImageUrl(validImage.edmIsShownBy[0]);
-                    setImageYear(validImage.year[0]);
-                    setHints(validImage.dcDescription[0]);
-                    console.log('New image URL:', validImage.edmIsShownBy[0]);
-                } else {
-                    setError('No valid images found.');
-                }
+                setImageUrl(validImage.url);
+                setImageYear(validImage.year ? validImage.year : 'Unknown Year');
+                setHints({
+                    hintImage: validImage.hintImage ? validImage.hintImage : 'No image hint available',
+                    hintYear: validImage.hintYear ? validImage.hintYear : 'No year hint available',
+                    hintLocation: validImage.hintLocation ? validImage.hintLocation : 'No location hint available',
+                });
             } else {
                 setError('No images found.');
             }
@@ -64,6 +54,10 @@ const HistoricalImage = ({
         }
     }, [fetching]);
 
+    const handleImageLoad = () => {
+        onImageLoad();
+    };
+
     if (error) {
         return ( <
             div >
@@ -77,11 +71,19 @@ const HistoricalImage = ({
 
     return ( <
         div className = "historical-image-container" > {
-            imageUrl ? < img src = {
-                imageUrl
-            }
-            alt = "Historical"
-            className = "historical-image" / > : 'Loading...'
+            imageUrl ? ( <
+                img src = {
+                    imageUrl
+                }
+                alt = "Historical"
+                className = "historical-image"
+                onLoad = {
+                    handleImageLoad
+                }
+                />
+            ) : (
+                'Loading...'
+            )
         } <
         /div>
     );

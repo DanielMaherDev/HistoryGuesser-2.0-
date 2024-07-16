@@ -1,3 +1,5 @@
+/* GameScreen.css */
+
 .game-screen {
     display: flex;
     flex-direction: column;
@@ -21,16 +23,24 @@
 }
 
 .bottom-bar {
-    height: 10%;
+    height: 80px;
     border-top: 1px solid black;
     justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    z-index: 10;
 }
 
 .main-content {
     display: flex;
     flex: 1;
-    padding: 10px;
     justify-content: space-between;
+    overflow-y: auto;
+    padding: 10px;
+    padding-bottom: 80px;
+    /* Adjust for bottom bar */
 }
 
 .logo img {
@@ -43,8 +53,6 @@
 .multiplier,
 .streak,
 .close,
-.image,
-.hints,
 .year-scroller,
 .guess-button {
     display: flex;
@@ -69,21 +77,67 @@
     width: 5%;
 }
 
-.image {
+.image-container {
     flex: 3;
-    margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    height: calc(100vh - 160px);
+    /* Adjust for top and bottom bars */
+    padding-right: 10px;
+    /* Add some space between image and hints */
 }
 
-.hints {
+.historical-image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.historical-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.hints-container {
     flex: 1;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: transparent;
+    border: none;
+    align-items: flex-start;
+    position: relative;
 }
 
-.year-scroller {
-    width: 45%;
+.hint-message {
+    background-color: rgba(0, 123, 255, 0.5);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    animation: slideIn 0.5s ease-out;
+    backdrop-filter: blur(5px);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .guess-button {
@@ -100,24 +154,12 @@
     background-color: #0056b3;
 }
 
-.bottom-bar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: white;
-    padding: 10px;
-    text-align: center;
-    z-index: 10;
-}
-
 .proxy-switch-button {
     position: fixed;
     top: 10px;
     right: 10px;
     z-index: 10000000;
-    /* High z-index */
     background-color: #ff0000;
-    /* Red background for Heroku */
     color: white;
     border: none;
     padding: 10px;
@@ -127,5 +169,4 @@
 
 .proxy-switch-button.blue {
     background-color: #0000ff;
-    /* Blue background for the alternative proxy */
 }

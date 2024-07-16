@@ -11,3 +11,39 @@
     margin: 10px 0;
     font-size: 18px;
 }
+
+/* InfoPanel.css */
+
+.info-panel {
+    position: absolute;
+    bottom: 100px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    z-index: 10;
+    background: none;
+}
+
+.hint-message {
+    background-color: rgba(0, 123, 255, 0.5);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    max-width: 80%;
+    animation: slideIn 0.5s ease-out;
+    backdrop-filter: blur(5px);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

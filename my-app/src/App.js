@@ -1,4 +1,3 @@
-// src/App.js
 import React, {
     useState
 } from 'react';
@@ -34,15 +33,18 @@ const App = () => {
                             handlePackSelect
                         }
                         />} {
-                            currentView === 'game-screen' && < GameScreen selectedPack = {
-                                selectedPack
-                            }
-                            onGameStart = {
-                                handleGameStart
-                            }
-                            />} <
-                            /div>
-                        );
-                    };
+                            currentView === 'game-screen' && ( <
+                                GameScreen selectedPack = {
+                                    selectedPack
+                                }
+                                onGameStart = {
+                                    handleGameStart
+                                }
+                                />
+                            )
+                        } <
+                        /div>
+                    );
+                };
 
-                    export default App;
+                export default App;

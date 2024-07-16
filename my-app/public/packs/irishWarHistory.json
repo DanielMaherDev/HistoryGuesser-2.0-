@@ -1,0 +1,14 @@
+{
+    "images": [{
+        "url": "https://collection.nam.ac.uk/images/960/121000-121999/121136.jpg",
+        "year": "1916",
+        "location": "Dublin, Ireland",
+        "hintImage": "IRA volunteers during the Easter Rising",
+        "hintYear": "Mid-1910s, during the Easter Rising",
+        "hintLocation": "Dublin, central to the rebellion",
+        "dimensions": {
+            "width": 1200,
+            "height": 900
+        }
+    }]
+}

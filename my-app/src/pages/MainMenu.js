@@ -1,4 +1,3 @@
-// src/pages/MainMenu.js
 import React from 'react';
 
 const MainMenu = ({
@@ -9,7 +8,7 @@ const MainMenu = ({
         <
         h1 > Main Menu < /h1> <
         button onClick = {
-            () => onPackSelect('Irish War History')
+            () => onPackSelect('irishWarHistory')
         } > Enter Irish War History < /button> {
             /* Add more buttons for other packs here */ } <
         /div>
