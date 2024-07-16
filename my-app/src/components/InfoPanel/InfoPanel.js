@@ -10,12 +10,13 @@ const InfoPanel = ({
     const [displayedHints, setDisplayedHints] = useState([]);
 
     useEffect(() => {
-        if (hints && hints.length > 0) {
+        if (hints && Object.keys(hints).length > 0) {
             let index = 0;
+            const hintArray = Object.values(hints);
             const intervalId = setInterval(() => {
-                setDisplayedHints((prevHints) => [...prevHints, hints[index]]);
+                setDisplayedHints((prevHints) => [...prevHints, hintArray[index]]);
                 index += 1;
-                if (index >= hints.length) clearInterval(intervalId);
+                if (index >= hintArray.length) clearInterval(intervalId);
             }, 2000);
             return () => clearInterval(intervalId);
         }

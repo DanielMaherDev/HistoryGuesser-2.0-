@@ -1,34 +1,29 @@
-// src/components/CountdownScreen/CountdownScreen.js
 import React, {
-    useEffect,
-    useState
+    useState,
+    useEffect
 } from 'react';
 import './CountdownScreen.css';
 
 const CountdownScreen = ({
-    onComplete
+    onCountdownComplete
 }) => {
     const [countdown, setCountdown] = useState(3);
 
     useEffect(() => {
-        if (countdown === 0) {
-            onComplete();
-            return;
+        if (countdown > 0) {
+            const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+            return () => clearTimeout(timer);
+        } else {
+            onCountdownComplete();
         }
-
-        const intervalId = setInterval(() => {
-            setCountdown((prevCountdown) => prevCountdown - 1);
-        }, 1000);
-
-        return () => clearInterval(intervalId);
-    }, [countdown, onComplete]);
+    }, [countdown, onCountdownComplete]);
 
     return ( <
         div className = "countdown-screen" >
         <
-        div className = "countdown-number" > {
+        h1 > {
             countdown
-        } < /div> <
+        } < /h1> <
         /div>
     );
 };

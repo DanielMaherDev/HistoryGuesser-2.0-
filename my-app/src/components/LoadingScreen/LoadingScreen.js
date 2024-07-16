@@ -12,12 +12,12 @@ const LoadingScreen = ({
         {
             width: `${progress}%`
         }
-    } > < /div> <
-    /div> <
+    } > < /div> < /
+    div > <
     p > Loading...{
         progress
-    } % < /p> <
-    /div>
+    } % < /p> < /
+    div >
 );
 
 export default LoadingScreen;

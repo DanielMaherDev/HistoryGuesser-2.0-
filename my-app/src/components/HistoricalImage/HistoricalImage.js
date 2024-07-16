@@ -1,7 +1,7 @@
-// src/components/HistoricalImage/HistoricalImage.js
 import React, {
     useState,
-    useEffect
+    useEffect,
+    useCallback
 } from 'react';
 import './HistoricalImage.css';
 
@@ -16,7 +16,7 @@ const HistoricalImage = ({
     const [imageUrl, setImageUrl] = useState('');
     const [error, setError] = useState('');
 
-    const fetchNewImage = async () => {
+    const fetchNewImage = useCallback(async () => {
         try {
             const response = await fetch(`/packs/${selectedPack}.json`);
             if (!response.ok) {
@@ -46,17 +46,13 @@ const HistoricalImage = ({
         } finally {
             setFetching(false);
         }
-    };
+    }, [selectedPack, setFetching, setHints, setImageYear]);
 
     useEffect(() => {
         if (fetching) {
             fetchNewImage();
         }
-    }, [fetching]);
-
-    const handleImageLoad = () => {
-        onImageLoad();
-    };
+    }, [fetching, fetchNewImage]);
 
     if (error) {
         return ( <
@@ -64,8 +60,8 @@ const HistoricalImage = ({
             <
             div > Error: {
                 error
-            } < /div> <
-            /div>
+            } < /div> < /
+            div >
         );
     }
 
@@ -78,7 +74,7 @@ const HistoricalImage = ({
                 alt = "Historical"
                 className = "historical-image"
                 onLoad = {
-                    handleImageLoad
+                    onImageLoad
                 }
                 />
             ) : (

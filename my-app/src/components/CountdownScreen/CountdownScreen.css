@@ -1,31 +1,135 @@
-/* src/components/CountdownScreen/CountdownScreen.css */
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 1.5rem;
+}
+
+.loading-bar {
+    width: 80%;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loading-progress {
+    width: 0;
+    height: 100%;
+    background-color: #007bff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: loading 3s linear infinite;
+}
+
+@keyframes loading {
+    0% {
+        width: 0;
+    }
+
+    50% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0;
+    }
+}
+
+
+
+font-size: 4rem;
+
+
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 1.5rem;
+}
+
+.loading-bar {
+    width: 80%;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loading-progress {
+    width: 0;
+    height: 100%;
+    background-color: #007bff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: loading 3s linear infinite;
+}
+
+@keyframes loading {
+    0% {
+        width: 0;
+    }
+
+    50% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0;
+    }
+}
+
 .countdown-screen {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    width: 100vw;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.8);
     color: white;
-    font-size: 5rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+    font-size: 4rem;
 }
 
 .countdown-number {
-    animation: fadeInOut 1s linear infinite;
+    animation: scaleIn 1s ease-in-out infinite;
 }
 
-@keyframes fadeInOut {
+.countdown-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 4rem;
+}
 
-    0%,
-    100% {
+.countdown-number {
+    animation: scaleIn 1s ease-in-out infinite;
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(1);
         opacity: 1;
     }
 
     50% {
-        opacity: 0;
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
     }
 }

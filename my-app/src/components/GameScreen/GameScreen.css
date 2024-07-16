@@ -1,5 +1,3 @@
-/* GameScreen.css */
-
 .game-screen {
     display: flex;
     flex-direction: column;
@@ -23,24 +21,25 @@
 }
 
 .bottom-bar {
-    height: 80px;
+    height: 10%;
     border-top: 1px solid black;
     justify-content: space-around;
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #333;
     z-index: 10;
 }
 
 .main-content {
     display: flex;
     flex: 1;
-    justify-content: space-between;
-    overflow-y: auto;
     padding: 10px;
-    padding-bottom: 80px;
-    /* Adjust for bottom bar */
+    justify-content: space-between;
+    margin-bottom: 10%;
+    /* This ensures main content does not overlap bottom bar */
+    overflow-y: auto;
+    height: calc(80vh - 20px);
+    /* Adjust for top and bottom bar */
 }
 
 .logo img {
@@ -53,13 +52,14 @@
 .multiplier,
 .streak,
 .close,
+.image,
+.hints,
 .year-scroller,
 .guess-button {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
-    border: 1px solid black;
     box-sizing: border-box;
 }
 
@@ -77,55 +77,31 @@
     width: 5%;
 }
 
-.image-container {
+.image {
     flex: 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-right: 10px;
+    height: calc(100% - 20px);
+    /* Adjust height */
+}
+
+.hints {
+    flex: 1;
+    padding: 10px;
     position: relative;
     overflow: hidden;
-    height: calc(100vh - 160px);
-    /* Adjust for top and bottom bars */
-    padding-right: 10px;
-    /* Add some space between image and hints */
-}
-
-.historical-image-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.historical-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.hints-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    overflow-y: auto;
-    background-color: transparent;
-    border: none;
-    align-items: flex-start;
-    position: relative;
 }
 
 .hint-message {
     background-color: rgba(0, 123, 255, 0.5);
+    /* 50% transparent */
     color: white;
     padding: 10px 15px;
     border-radius: 20px;
     margin-bottom: 10px;
     max-width: 80%;
     animation: slideIn 0.5s ease-out;
-    backdrop-filter: blur(5px);
+    border: 2px solid white;
+    /* Improved border style */
 }
 
 @keyframes slideIn {
@@ -140,33 +116,58 @@
     }
 }
 
-.guess-button {
-    width: 20%;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.guess-button:hover {
-    background-color: #0056b3;
-}
-
-.proxy-switch-button {
+.bottom-bar {
+    height: 80px;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
     position: fixed;
-    top: 10px;
-    right: 10px;
-    z-index: 10000000;
-    background-color: #ff0000;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
+    bottom: 0;
+    width: 100%;
 }
 
-.proxy-switch-button.blue {
-    background-color: #0000ff;
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 1.5rem;
+}
+
+.loading-bar {
+    width: 80%;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.loading-progress {
+    width: 0;
+    height: 100%;
+    background-color: #007bff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: loading 3s linear infinite;
+}
+
+@keyframes loading {
+    0% {
+        width: 0;
+    }
+
+    50% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0;
+    }
 }

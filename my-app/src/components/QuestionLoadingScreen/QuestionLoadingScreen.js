@@ -1,41 +1,53 @@
-// src/components/QuestionLoadingScreen/QuestionLoadingScreen.js
 import React, {
     useState,
     useEffect
 } from 'react';
 import './QuestionLoadingScreen.css';
 
-const QuestionLoadingScreen = () => {
+const QuestionLoadingScreen = ({
+    onForceStart,
+    imageLoaded
+}) => {
     const [progress, setProgress] = useState(0);
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
+        const interval = setInterval(() => {
             setProgress((prevProgress) => {
-                if (prevProgress < 100) {
-                    return prevProgress + 1;
-                } else {
-                    clearInterval(intervalId);
+                if (prevProgress >= 100) {
+                    clearInterval(interval);
                     return 100;
                 }
+                return prevProgress + 1;
             });
         }, 50);
 
-        return () => clearInterval(intervalId);
+        return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        if (imageLoaded && progress >= 100) {
+            onForceStart();
+        }
+    }, [imageLoaded, progress, onForceStart]);
+
     return ( <
-        div className = "question-loading-screen" >
+        div className = "loading-screen" >
         <
-        div className = "progress-bar" >
+        div className = "loading-bar" >
         <
-        div className = "progress"
+        div className = "loading-progress"
         style = {
             {
                 width: `${progress}%`
             }
         } > < /div> <
         /div> <
-        div className = "loading-text" > Loading... < /div> <
+        button className = "force-start-button"
+        onClick = {
+            onForceStart
+        } >
+        Start Now <
+        /button> <
         /div>
     );
 };
