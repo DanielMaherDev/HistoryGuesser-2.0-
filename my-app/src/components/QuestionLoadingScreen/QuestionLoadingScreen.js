@@ -13,6 +13,7 @@ const QuestionLoadingScreen = ({
     useEffect(() => {
         const interval = setInterval(() => {
             setProgress((prevProgress) => {
+                console.log('Progress:', prevProgress); // Debugging log
                 if (prevProgress >= 100) {
                     clearInterval(interval);
                     return 100;
@@ -25,10 +26,18 @@ const QuestionLoadingScreen = ({
     }, []);
 
     useEffect(() => {
+        console.log('Image Loaded and Progress:', imageLoaded, progress); // Debugging log
         if (imageLoaded && progress >= 100) {
             onForceStart();
         }
     }, [imageLoaded, progress, onForceStart]);
+
+    useEffect(() => {
+        console.log('Progress:', progress); // Debugging log
+        if (progress >= 100) {
+            onForceStart();
+        }
+    }, [progress, onForceStart]);
 
     return ( <
         div className = "loading-screen" >
@@ -40,7 +49,9 @@ const QuestionLoadingScreen = ({
             {
                 width: `${progress}%`
             }
-        } > < /div> <
+        } >
+        <
+        /div> <
         /div> <
         button className = "force-start-button"
         onClick = {

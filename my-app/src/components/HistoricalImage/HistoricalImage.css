@@ -15,15 +15,7 @@
 }
 
 /* Adjust the main content area */
-.main-content {
-    padding-bottom: 100px;
-    /* Add bottom padding to accommodate the bottom bar */
-    /* Other styles */
-    overflow-y: auto;
-    /* Ensure scroll if content is too tall */
-    position: relative;
-    /* Ensure relative positioning */
-}
+
 
 .historical-image-container {
     display: flex;
@@ -70,4 +62,34 @@
         opacity: 1;
         transform: translateX(0);
     }
+}
+
+.historical-image-container {
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #DAA520;
+    border-radius: 8px;
+}
+
+.image-description {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #555;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.image {
+    padding: 20px;
+    padding-bottom: 80px;
+
+
 }
